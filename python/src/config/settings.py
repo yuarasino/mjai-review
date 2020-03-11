@@ -1,7 +1,13 @@
-import os
+from pathlib import Path
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+BASE_PATH = Path(__file__).parent.parent
+BASE_DIR = str(BASE_PATH.absolute())
+
+BACKEND_PATH = BASE_PATH.parent
+PROJECT_PATH = BACKEND_PATH.parent
+FRONTEND_PATH = PROJECT_PATH / 'node'
 
 
 # Quick-start development settings - unsuitable for production
@@ -26,6 +32,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'webpack_loader',
+
+    'home',
 ]
 
 MIDDLEWARE = [
@@ -56,6 +65,10 @@ TEMPLATES = [
     },
 ]
 
+STATICFILES_DIRS = (
+    str(FRONTEND_PATH / 'dist/static'),
+)
+
 WSGI_APPLICATION = 'config.wsgi.application'
 
 
@@ -65,7 +78,7 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'NAME': str(BASE_PATH / 'db.sqlite3'),
     }
 }
 
@@ -107,3 +120,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
+# django-webpack-loader setting
+WEBPACK_LOADER = {
+    'DEFAULT': {
+        'BUNDLE_DIR_NAME': 'vue/',
+        'STATS_FILE': str(FRONTEND_PATH / 'dist/webpack-stats.json'),
+    }
+}
