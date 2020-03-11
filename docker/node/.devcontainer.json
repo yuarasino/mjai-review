@@ -1,0 +1,11 @@
+{
+  "dockerComposeFile": "../../docker-compose.yml",
+  "service": "vue",
+  "workspaceFolder": "/project/node",
+  "shutdownAction": "none",
+  "extensions": [
+    "editorconfig.editorconfig",
+    "octref.vetur",
+    "sysoev.language-stylus"
+  ]
+}

@@ -14,6 +14,22 @@ services:
     working_dir: /project/python
     command: make runserver
 
+  vue:
+    hostname: vue
+    build:
+      context: .
+      dockerfile: ./docker/node/Dockerfile
+    ports:
+      - "8080:8080"
+    volumes:
+      - .:/project
+      - node_modules:/root/project/node/node_modules:cached
+      - node_vscode:/root/.vscode-server/extensions:cached
+    working_dir: /project/node
+    command: yarn serve
+
 volumes:
   python_venv:
   python_vscode:
+  node_modules:
+  node_vscode:
