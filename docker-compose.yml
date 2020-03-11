@@ -1,0 +1,19 @@
+version: "3.7"
+services:
+  django:
+    hostname: django
+    build:
+      context: .
+      dockerfile: ./docker/python/Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/project
+      - python_venv:/project/python/.venv:cached
+      - python_vscode:/root/.vscode-server/extensions:cached
+    working_dir: /project/python
+    command: make runserver
+
+volumes:
+  python_venv:
+  python_vscode:
