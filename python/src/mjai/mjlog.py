@@ -38,7 +38,7 @@ def get_mjlog_watch_url(mjlog_id: str, target_wind: int) -> str:
     >>> get_mjlog_fetch_url(mjlog_id, target_wind)
     "http://tenhou.net/3/?log=2011020613gm-00a9-0000-3774f8d1&tw=2"
     """
-    return consts.MJLOG_FETCH_URL.format(mjlog_id=mjlog_id)
+    return consts.MJLOG_WATCH_URL.format(mjlog_id=mjlog_id, target_wind=target_wind)
 
 
 def get_mjson_text(mjlog_id: str) -> str:

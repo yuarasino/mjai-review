@@ -1,9 +1,14 @@
-from rest_framework.generics import CreateAPIView
+from rest_framework.generics import ListAPIView, CreateAPIView
 
 from mjai import mjlog
 
-from .serializers import ReviewCreateSerializer
+from .serializers import ReviewListSerializer, ReviewCreateSerializer
 from .services import ReviewService
+
+
+class ReviewListAPI(ListAPIView):
+    serializer_class = ReviewListSerializer
+    queryset = ReviewService.get_queryset()
 
 
 class ReviewCreateAPI(CreateAPIView):

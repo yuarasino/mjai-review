@@ -5,6 +5,14 @@ from mjai.mjlog import get_mjlog_id_and_target_wind
 from .models import Review
 
 
+class ReviewListSerializer(serializers.ModelSerializer):
+    mjlog_watch_url = serializers.URLField()
+
+    class Meta:
+        model = Review
+        fields = ["id", "mjlog_watch_url", "review_status", "reserved_at"]
+
+
 class ReviewCreateSerializer(serializers.Serializer):
     mjlog_watch_url = serializers.URLField()
 
