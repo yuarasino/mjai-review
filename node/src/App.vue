@@ -1,16 +1,27 @@
 <template lang="pug">
-  #app
-    #nav
-      | #[router-link(to="/") Home] | #[router-link(to="/about") About]
-    router-view
+#app
+  Header
+  Aside
+  Main
+  Footer
 </template>
 
-<style lang="stylus">
-#app
-  font-family Avenir, Helvetica, Arial, sans-serif
-  -webkit-font-smoothing antialiased
-  -moz-osx-font-smoothing grayscale
-  text-align center
-  color #2c3e50
-  margin-top 60px
-</style>
+<script lang="ts">
+import { Component, Vue } from "vue-property-decorator"
+import Header from "./components/globals/Header.vue"
+import Aside from "./components/globals/Aside.vue"
+import Main from "./components/globals/Main.vue"
+import Footer from "./components/globals/Footer.vue"
+
+@Component({
+  components: {
+    Header,
+    Aside,
+    Main,
+    Footer
+  }
+})
+export default class App extends Vue {}
+</script>
+
+<style lang="stylus" scoped></style>
