@@ -5,7 +5,7 @@ from typing import Any, Dict, Tuple
 from urllib.parse import parse_qsl, urlparse
 from uuid import uuid4
 
-from .. import consts
+from . import consts
 
 
 def get_mjlog_id_and_target_wind(url: str) -> Tuple[str, int]:
