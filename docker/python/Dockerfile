@@ -4,6 +4,15 @@ ENV LANG C.UTF-8
 ENV TZ Asia/Tokyo
 
 
+# install mjai
+# ref. http://gimite.net/pukiwiki/index.php?Mjai%20%E9%BA%BB%E9%9B%80AI%E5%AF%BE%E6%88%A6%E3%82%B5%E3%83%BC%E3%83%90#tb349d5b
+RUN set -ex \
+  && apt-get update && apt-get install -y \
+    ruby-dev \
+  && apt-get clean && rm -rf /var/lib/apt/lists/* \
+  && gem install mjai
+
+
 # install poetry
 RUN set -ex \
   && pip install poetry
