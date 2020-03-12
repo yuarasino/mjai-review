@@ -16,3 +16,11 @@ COPY ./node/package.json ./node/yarn.lock ./
 
 RUN set -ex \
   && yarn install
+
+
+# copy project and run server
+WORKDIR /project/node
+
+COPY ./node .
+
+CMD [ "yarn", "build" ]

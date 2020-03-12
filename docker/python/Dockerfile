@@ -51,5 +51,15 @@ RUN set -ex \
   && poetry install
 
 
+# copy project and run server
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONPATH /project/python/src
+
+WORKDIR /project/python
+
+COPY ./python .
+
+RUN set -ex \
+  && make migrate
+
+CMD [ "make", "runserver" ]
