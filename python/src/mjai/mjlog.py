@@ -8,13 +8,13 @@ from uuid import uuid4
 from . import consts
 
 
-def get_mjlog_id_and_target_wind(url: str) -> Tuple[str, int]:
-    """天鳳の牌譜URLから、mjlog_idと視点を取得する
+def get_mjlog_id_and_target_wind(mjlog_watch_url: str) -> Tuple[str, int]:
+    """天鳳の観戦URLから、mjlog_idと視点を取得する
     >>> from mjai.scripts.mjlog import get_mjlog_id_and_target_wind
     >>> url = "http://tenhou.net/3/?log=2011020613gm-00a9-0000-3774f8d1&tw=2"
     >>> mjlog_id, target_wind = get_mjlog_id_and_target_wind(url)
     """
-    query = urlparse(url).query
+    query = urlparse(mjlog_watch_url).query
     query_dict = dict(parse_qsl(query))
     mjlog_id = query_dict["log"]
     target_wind = int(query_dict.get("tw", "0"))
@@ -35,7 +35,7 @@ def fetch_mjlog(mjlog_id: str) -> bytes:
 
 
 def convert_mjlog(mjlog: bytes) -> str:
-    """mjlog(gzip)をmjson形式のjsonに変換する
+    """mjlog形式のgzipからmjson形式のjsonに変換する
     >>> from mjai.scripts.mjlog import convert_mjlog
     >>> mjlog = <fetch_mjlogで取得したデータ>
     >>> mjson = convert_mjlog(mjlog)
