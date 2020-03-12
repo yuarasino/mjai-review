@@ -1,5 +1,5 @@
 from django.views.generic import TemplateView
 
 
-class IndexPage(TemplateView):
+class IndexView(TemplateView):
     template_name = "vue/index.html"
