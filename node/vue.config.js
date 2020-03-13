@@ -2,7 +2,10 @@
 const BundleTracker = require("webpack-bundle-tracker")
 
 let config = {
-  assetsDir: "static/vue"
+  assetsDir: "static/vue",
+  devServer: {
+    proxy: "http://django:8000"
+  }
 }
 
 if (process.env.NODE_ENV === "production") {

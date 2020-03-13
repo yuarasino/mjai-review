@@ -1,7 +1,7 @@
 import json
-from pathlib import Path
 import subprocess
 from logging import getLogger
+from pathlib import Path
 from typing import Any, Dict, List, TextIO
 
 from django.db.models import QuerySet
@@ -50,7 +50,8 @@ class ReviewService:
     def get_evaluation(self, mjson_file: Path, target_wind: int, i: int) -> List[Dict[str, Any]]:
         result = subprocess.run(
             ["./system.exe", "mjai_log", mjson_file, str(target_wind), str(i)],
-            cwd="/opt/akochan", 
-            capture_output=True, check=True
+            cwd="/opt/akochan",
+            capture_output=True,
+            check=True,
         )
-        return json.loads(result.stdout.strip().split(b'\n')[-1])
+        return json.loads(result.stdout.strip().split(b"\n")[-1])
