@@ -23,7 +23,7 @@ services:
       - "8080:8080"
     volumes:
       - .:/project
-      - node_modules:/root/project/node/node_modules:cached
+      - node_modules:/project/node/node_modules:cached
       - node_vscode:/root/.vscode-server/extensions:cached
     working_dir: /project/node
     command: yarn serve
