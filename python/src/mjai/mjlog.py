@@ -1,4 +1,5 @@
 import subprocess
+from contextlib import contextmanager
 from pathlib import Path
 from tempfile import TemporaryDirectory
 from typing import Any, Dict, Tuple
@@ -12,7 +13,7 @@ def get_mjlog_id_and_target_wind(mjlog_watch_url: str) -> Tuple[str, int]:
     >>> from mjai.mjlog import get_mjlog_id_and_target_wind
     >>> mjlog_watch_url = "http://tenhou.net/3/?log=2011020613gm-00a9-0000-3774f8d1&tw=2"
     >>> get_mjlog_id_and_target_wind(mjlog_watch_url)
-    ("2011020613gm-00a9-0000-3774f8d1", 2)
+    ('2011020613gm-00a9-0000-3774f8d1', 2)
     """
     query = urlparse(mjlog_watch_url).query
     query_dict = dict(parse_qsl(query))
@@ -26,7 +27,7 @@ def get_mjlog_fetch_url(mjlog_id: str) -> str:
     >>> from mjai.mjlog import get_mjlog_fetch_url
     >>> mjlog_id = "2011020613gm-00a9-0000-3774f8d1"
     >>> get_mjlog_fetch_url(mjlog_id)
-    "http://tenhou.net/0/log/?2011020613gm-00a9-0000-3774f8d1"
+    'http://tenhou.net/0/log/?2011020613gm-00a9-0000-3774f8d1'
     """
     return consts.MJLOG_FETCH_URL.format(mjlog_id=mjlog_id)
 
@@ -36,42 +37,44 @@ def get_mjlog_watch_url(mjlog_id: str, target_wind: int) -> str:
     >>> from mjai.mjlog import get_mjlog_fetch_url
     >>> mjlog_id, target_wind = "2011020613gm-00a9-0000-3774f8d1", 2
     >>> get_mjlog_fetch_url(mjlog_id, target_wind)
-    "http://tenhou.net/3/?log=2011020613gm-00a9-0000-3774f8d1&tw=2"
+    'http://tenhou.net/3/?log=2011020613gm-00a9-0000-3774f8d1&tw=2'
     """
     return consts.MJLOG_WATCH_URL.format(mjlog_id=mjlog_id, target_wind=target_wind)
 
 
-def get_mjson_text(mjlog_id: str) -> str:
+@contextmanager
+def get_mjson_file(mjlog_id: str) -> Path:
     """牌譜IDからmjson形式のtextに変換する
-    >>> from mjai.mjlog import get_mjson_text
+    >>> from mjai.mjlog import get_mjson_file
     >>> mjlog_id = "2011020613gm-00a9-0000-3774f8d1"
-    >>> get_mjson_text(mjlog_id)
-    "<mjson形式のtext>"
+    >>> with get_mjson_file(mjlog_id) as mjson_file:
+    >>>     print(mjson_file)
+    '/tmp/tmpj4w1bnr2/2011020613gm-00a9-0000-3774f8d1.mjson'
     """
-    mjlog_gzip = fetch_mjlog_gzip(mjlog_id)
-    with TemporaryDirectory() as tmp_dir:
-        mjlog_tmp_path = Path(tmp_dir) / f"{mjlog_id}.mjlog"
-        mjson_tmp_path = Path(tmp_dir) / f"{mjlog_id}.mjson"
-        with mjlog_tmp_path.open("wb") as f:
-            f.write(mjlog_gzip)
+    with TemporaryDirectory() as d, fetch_mjlog_file(mjlog_id) as mjlog_file:
+        path = Path(d) / f"{mjlog_id}.mjson"
+        mjson_file = path.absolute()
         subprocess.run(
-            ["mjai", "convert", f"{mjlog_tmp_path.absolute()}", f"{mjson_tmp_path.absolute()}"],
-            check=True,
+            ["mjai", "convert", mjlog_file, mjson_file], check=True,
         )
-        with mjson_tmp_path.open("r") as f:
-            mjson_text = f.read()
-    return mjson_text
+        yield mjson_file
 
 
-def fetch_mjlog_gzip(mjlog_id: str) -> bytes:
-    """天鳳の牌譜URLから、mjlog形式のgzipをダウンロードする
-    >>> from mjai.mjlog import fetch_mjlog_gzip
+@contextmanager
+def fetch_mjlog_file(mjlog_id: str) -> Path:
+    """天鳳の牌譜URLから、mjlog形式のファイルをダウンロードする
+    >>> from mjai.mjlog import fetch_mjlog_file
     >>> mjlog_id = "2011020613gm-00a9-0000-3774f8d1"
-    >>> fetch_mjlog_gzip(mjlog_id)
-    b"<mjlog形式のgzip>"
+    >>> with fetch_mjlog_file(mjlog_id) as mjlog_file:
+    >>>     print(mjlog_file)
+    '/tmp/tmpmvdvc4x2/2011020613gm-00a9-0000-3774f8d1.mjlog'
     """
     fetch_url = consts.MJLOG_FETCH_URL.format(mjlog_id=mjlog_id)
     result = subprocess.run(
-        ["curl", "-SsL", "--compressed", "--raw", f"{fetch_url}"], capture_output=True, check=True
+        ["curl", "-SsL", "--compressed", "--raw", fetch_url], capture_output=True, check=True
     )
-    return result.stdout
+    with TemporaryDirectory() as d:
+        path = Path(d) / f"{mjlog_id}.mjlog"
+        with path.open("wb") as f:
+            f.write(result.stdout)
+        yield path.absolute()

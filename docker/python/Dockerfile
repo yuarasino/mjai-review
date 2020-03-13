@@ -35,6 +35,8 @@ RUN set -ex \
 
 
 # install poetry
+ENV POETRY_VIRTUALENVS_IN_PROJECT 1
+
 RUN set -ex \
   && pip install poetry
 
