@@ -39,13 +39,17 @@ class ReviewService:
         review.save()
 
     def do_review(self, review: Review) -> str:
+        results = []
         with mjlog.get_mjson_file(review.mjlog_id) as mjson_file:
             with mjson_file.open() as f:
                 mjson = json.loads(f"[{','.join(row for row in f if row)}]")
             for i, action in enumerate(mjson):
                 if action["type"] == "tsumo" and action["actor"] == review.target_wind:
                     evaluation = self.get_evaluation(mjson_file, review.target_wind, i)
-                    logger.info(evaluation)
+                    results.append(evaluation)
+                if i > 20:
+                    break
+        return json.dumps(results)
 
     def get_evaluation(self, mjson_file: Path, target_wind: int, i: int) -> List[Dict[str, Any]]:
         result = subprocess.run(

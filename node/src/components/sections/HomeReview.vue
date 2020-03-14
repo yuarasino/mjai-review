@@ -21,14 +21,14 @@ import axios, { AxiosResponse } from "axios"
 import moment from "moment"
 
 interface ReviewModel {
-  review_status: 1 | 2 | 3 | 4,
-  mjlog_watch_url: string,
+  review_status: 1 | 2 | 3 | 4
+  mjlog_watch_url: string
   reserved_at: string
 }
 
 interface Review {
-  reviewStatus: string,
-  mjlogWatchUrl: string,
+  reviewStatus: string
+  mjlogWatchUrl: string
   reservedAt: string
 }
 
@@ -36,22 +36,26 @@ interface Review {
 export default class HomeReview extends Vue {
   reviewList: Review[] = []
 
-  created () {
-    this.fetchReviewListAsync().then(data => {
+  created() {
+    this.fetchReviewListAsync().then((data) => {
       this.reviewList = data
     })
   }
 
   async fetchReviewListAsync(): Promise<Review[]> {
-    const res: AxiosResponse<ReviewModel[]> = await axios.get('/api/review/list')
-    return res.data.map((x: ReviewModel): Review => {
-      const ReviewStatus = {1: "⌛", 2: "🔃", 3: "✅", 4: "⚠"}
-      return {
-        reviewStatus: ReviewStatus[x.review_status],
-        mjlogWatchUrl: x.mjlog_watch_url,
-        reservedAt: moment(x.reserved_at).format("YYYY/MM/DD HH:mm:ss")
+    const res: AxiosResponse<ReviewModel[]> = await axios.get(
+      "/api/review/list"
+    )
+    return res.data.map(
+      (x: ReviewModel): Review => {
+        const ReviewStatus = { 1: "⌛", 2: "🔃", 3: "✅", 4: "⚠" }
+        return {
+          reviewStatus: ReviewStatus[x.review_status],
+          mjlogWatchUrl: x.mjlog_watch_url,
+          reservedAt: moment(x.reserved_at).format("YYYY/MM/DD HH:mm:ss")
+        }
       }
-    })
+    )
   }
 }
 </script>

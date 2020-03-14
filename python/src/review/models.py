@@ -20,7 +20,7 @@ class Review(models.Model):
     review_status = models.PositiveSmallIntegerField(
         "レビューの状況", choices=Status.choices, default=Status.Reserved
     )
-    review_result = models.TextField("レビューの結果", blank=True)
+    review_result = models.TextField("レビューの結果", blank=True, default="")
     reserved_at = models.DateTimeField("予約時刻", default=timezone.now)
     started_at = models.DateTimeField("開始時刻", null=True, blank=True)
     ended_at = models.DateTimeField("終了時刻", null=True, blank=True)

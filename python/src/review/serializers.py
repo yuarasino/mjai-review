@@ -18,4 +18,7 @@ class ReviewCreateSerializer(serializers.Serializer):
 
     def create(self, validated_data) -> Review:
         mjlog_id, target_wind = get_mjlog_id_and_target_wind(validated_data["mjlog_watch_url"])
-        return Review.objects.create(mjlog_id=mjlog_id, target_wind=target_wind)
+        return Review.objects.create(
+            mjlog_id=mjlog_id, 
+            target_wind=target_wind
+        )
