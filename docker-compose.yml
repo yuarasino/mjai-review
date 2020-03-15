@@ -13,6 +13,21 @@ services:
     working_dir: /project/frontend
     command: yarn serve
 
+  backend:
+    build:
+      context: .
+      dockerfile: docker/backend/Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/project
+      - backend_deps:/project/backend/.venv:cached
+      - backend_exts:/root/.vscode-server/extensions:cached
+    working_dir: /project/backend
+    command: make runserver
+
 volumes:
   frontend_deps:
   frontend_exts:
+  backend_deps:
+  backend_exts:

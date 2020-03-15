@@ -1,0 +1,3 @@
+[submodule "akochan"]
+	path = akochan
+	url = git@github.com:yuarasino/akochan.git
