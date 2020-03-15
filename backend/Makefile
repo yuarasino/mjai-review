@@ -1,4 +1,4 @@
-.PHONY: manage migrate runserver
+.PHONY: manage migrate runserver lint fmt
 
 manage:
 	poetry run python src/manage.py ${c}
@@ -8,3 +8,11 @@ migrate:
 
 runserver:
 	poetry run python src/manage.py runserver 0.0.0.0:8000
+
+lint:
+	poetry run flake8 .
+	poetry run mypy .
+
+fmt:
+	poetry run black .
+	poetry run isort -y
