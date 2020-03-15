@@ -10,8 +10,6 @@ services:
       - .:/project
       - frontend_deps:/project/frontend/node_modules:cached
       - frontend_exts:/root/.vscode-server/extensions:cached
-    working_dir: /project/frontend
-    command: yarn serve
 
   backend:
     build:
@@ -23,8 +21,6 @@ services:
       - .:/project
       - backend_deps:/project/backend/.venv:cached
       - backend_exts:/root/.vscode-server/extensions:cached
-    working_dir: /project/backend
-    command: make runserver
 
 volumes:
   frontend_deps:

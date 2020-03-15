@@ -18,3 +18,12 @@ COPY frontend/package.json frontend/yarn.lock ./
 
 RUN set -ex \
   && yarn install
+
+
+# run frontend app
+
+COPY frontend .
+
+EXPOSE 8080
+
+CMD [ "yarn", "serve" ]

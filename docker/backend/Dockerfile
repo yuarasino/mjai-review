@@ -58,3 +58,17 @@ COPY backend/pyproject.toml backend/poetry.lock ./
 
 RUN set -ex \
   && poetry install
+
+
+# run backend app
+
+ENV PYTHONPATH /project/backend/src
+
+COPY backend .
+
+RUN set -ex \
+  && make migrate
+
+EXPOSE 8000
+
+CMD [ "make", "runserver" ]
