@@ -1,0 +1,11 @@
+{
+  "dockerComposeFile": "../../docker-compose.yml",
+  "service": "frontend",
+  "workspaceFolder": "/project/frontend",
+  "shutdownAction": "none",
+  "extensions": [
+    "editorconfig.editorconfig",
+    "octref.vetur",
+    "sysoev.language-stylus"
+  ]
+}

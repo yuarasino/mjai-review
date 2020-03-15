@@ -1,0 +1,18 @@
+version: "3.7"
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: docker/frontend/Dockerfile
+    ports:
+      - "8080:8080"
+    volumes:
+      - .:/project
+      - frontend_deps:/project/frontend/node_modules:cached
+      - frontend_exts:/root/.vscode-server/extensions:cached
+    working_dir: /project/frontend
+    command: yarn serve
+
+volumes:
+  frontend_deps:
+  frontend_exts:
