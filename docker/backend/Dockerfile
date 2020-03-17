@@ -32,7 +32,7 @@ RUN set -ex \
 ENV LD_LIBRARY_PATH $LD_LIBRARY_PATH:/opt/akochan
 
 RUN set -ex \
-  && echo "#!/bin/sh\ncd /opt/akochan\nexec ./system.exe \"$@\"" > akochan \
+  && echo "#!/bin/sh\ncd /opt/akochan\nexec ./system.exe \"\$@\"" > akochan \
   && chmod +x akochan \
   && ln -s /opt/akochan/akochan /usr/local/bin/
 
