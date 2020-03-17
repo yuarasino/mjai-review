@@ -1,6 +1,5 @@
 import pytest
 from django.urls import reverse
-from rest_framework.test import APIRequestFactory
 
 
 class TestReviewCreateView:
@@ -30,3 +29,21 @@ class TestReviewCreateView:
         request = rf.post(target_url, post_data)
         response = target_view(request)
         assert response.status_code == 400
+
+
+class TestReviewListView:
+    @pytest.fixture
+    def target_view(self):
+        from review.views import ReviewListAPIView
+
+        return ReviewListAPIView.as_view()
+
+    @pytest.fixture
+    def target_url(self):
+        return reverse("review:review_list")
+
+    @pytest.mark.django_db
+    def test_valid_review_create_serializer(self, rf, target_view, target_url):
+        request = rf.get(target_url)
+        response = target_view(request)
+        assert response.status_code == 200

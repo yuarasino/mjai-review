@@ -19,3 +19,12 @@ class ReviewCreateSerializer(serializers.ModelSerializer):
         validated_data["mjlog_id"] = mjlog_id
         validated_data["target_actor"] = target_actor
         return super().create(validated_data)
+
+
+class ReviewListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Review
+        fields = ["id", "status", "mjlog_view_url", "reserved_at"]
+
+    status = serializers.CharField(source="get_status_display")
+    reserved_at = serializers.DateTimeField(format=r"%Y-%m-%d %H:%M")
