@@ -1,4 +1,4 @@
-from typing import Tuple, cast
+from typing import Tuple
 from urllib.parse import parse_qsl, urlparse
 
 from . import consts

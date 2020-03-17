@@ -17,6 +17,8 @@ flake8-isort = "^2.8.0"
 mypy = "^0.770"
 django-stubs = "^1.5.0"
 djangorestframework-stubs = "^1.1.0"
+pytest = "^5.4.1"
+pytest-django = "^3.8.0"
 
 [tool.black]
 line-length = 99
