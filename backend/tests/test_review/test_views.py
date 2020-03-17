@@ -17,7 +17,7 @@ class TestReviewCreateView:
     @pytest.mark.django_db
     def test_valid_review_create_serializer(self, rf, target_view, target_url):
         post_data = {
-            "mjlog_view_url": "https://tenhou.net/3/?log=2011020613gm-00a9-0000-3774f8d1&tw=2"
+            "mjlog_view_url": "https://tenhou.net/0/?log=2011020613gm-00a9-0000-3774f8d1&tw=2"
         }
         request = rf.post(target_url, post_data)
         response = target_view(request)
@@ -25,7 +25,7 @@ class TestReviewCreateView:
 
     def test_invalid_review_create_serializer(self, rf, target_view, target_url):
         post_data = {
-            "mjlog_view_url": "https://example.com/3/?log=2011020613gm-00a9-0000-3774f8d1&tw=2"
+            "mjlog_view_url": "https://example.com/0/?log=2011020613gm-00a9-0000-3774f8d1&tw=2"
         }
         request = rf.post(target_url, post_data)
         response = target_view(request)

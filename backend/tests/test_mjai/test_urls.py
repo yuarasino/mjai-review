@@ -12,11 +12,11 @@ class TestParseMjlogViewUrl:
         "mjlog_view_url, expected",
         [
             (
-                "https://tenhou.net/3/?log=2011020613gm-00a9-0000-3774f8d1&tw=2",
+                "https://tenhou.net/0/?log=2011020613gm-00a9-0000-3774f8d1&tw=2",
                 ("2011020613gm-00a9-0000-3774f8d1", 2),
             ),
             (
-                "https://tenhou.net/3/?log=2011020613gm-00a9-0000-3774f8d1",
+                "https://tenhou.net/0/?log=2011020613gm-00a9-0000-3774f8d1",
                 ("2011020613gm-00a9-0000-3774f8d1", 0),
             ),
         ],
@@ -35,7 +35,7 @@ class TestGetMjlogViewUrl:
         return get_mjlog_view_url
 
     def test_get_mjlog_view_url(self, target_func):
-        expected = "https://tenhou.net/3/?log=2011020613gm-00a9-0000-3774f8d1&tw=2"
+        expected = "https://tenhou.net/0/?log=2011020613gm-00a9-0000-3774f8d1&tw=2"
 
         mjlog_id = "2011020613gm-00a9-0000-3774f8d1"
         target_actor = 2
