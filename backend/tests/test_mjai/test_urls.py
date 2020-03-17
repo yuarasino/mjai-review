@@ -8,16 +8,19 @@ class TestParseMjlogViewUrl:
 
         return parse_mjlog_view_url
 
-    @pytest.mark.parametrize("mjlog_view_url, expected", [
-        (
-            "https://tenhou.net/3/?log=2011020613gm-00a9-0000-3774f8d1&tw=2", 
-            ("2011020613gm-00a9-0000-3774f8d1", 2)
-        ),
-        (
-            "https://tenhou.net/3/?log=2011020613gm-00a9-0000-3774f8d1", 
-            ("2011020613gm-00a9-0000-3774f8d1", 0)
-        )
-    ])
+    @pytest.mark.parametrize(
+        "mjlog_view_url, expected",
+        [
+            (
+                "https://tenhou.net/3/?log=2011020613gm-00a9-0000-3774f8d1&tw=2",
+                ("2011020613gm-00a9-0000-3774f8d1", 2),
+            ),
+            (
+                "https://tenhou.net/3/?log=2011020613gm-00a9-0000-3774f8d1",
+                ("2011020613gm-00a9-0000-3774f8d1", 0),
+            ),
+        ],
+    )
     def test_parse_mjlog_view_url(self, target_func, mjlog_view_url, expected):
         actual = target_func(mjlog_view_url)
 

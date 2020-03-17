@@ -28,8 +28,8 @@ class Review(models.Model):
 
     @property
     def mjlog_view_url(self) -> str:
-        return get_mjlog_file_url(self.mjlog_id, self.target_actor)
+        return get_mjlog_view_url(self.mjlog_id, self.target_actor)
 
     @property
     def mjlog_file_url(self) -> str:
-        return get_mjlog_view_url(self.mjlog_id)
+        return get_mjlog_file_url(self.mjlog_id)

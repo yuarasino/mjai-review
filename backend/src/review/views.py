@@ -1,3 +1,7 @@
-# from django.shortcuts import render
+from rest_framework.generics import CreateAPIView
 
-# Create your views here.
+from .serializers import ReviewCreateSerializer
+
+
+class ReviewCreateAPIView(CreateAPIView):
+    serializer_class = ReviewCreateSerializer

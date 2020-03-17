@@ -12,6 +12,9 @@ runserver:
 test:
 	poetry run pytest tests
 
+test-lf:
+	poetry run pytest --lf tests
+
 lint:
 	poetry run flake8 .
 	poetry run mypy .

@@ -108,6 +108,17 @@ mypy = ">=0.770,<0.780"
 typing-extensions = "*"
 
 [[package]]
+category = "main"
+description = "Web APIs for Django, made easy."
+name = "djangorestframework"
+optional = false
+python-versions = ">=3.5"
+version = "3.11.0"
+
+[package.dependencies]
+django = ">=1.11"
+
+[[package]]
 category = "dev"
 description = "PEP-484 stubs for django-rest-framework"
 name = "djangorestframework-stubs"
@@ -405,7 +416,7 @@ python-versions = "*"
 version = "0.1.8"
 
 [metadata]
-content-hash = "507f2be6eb5f2e0c637af69fab56a9286eff1120f822031ae2ff93f8fd11c857"
+content-hash = "0b19da508522f68d9310b2a111d224673279369c8bf6f890a3093c8ebf99e489"
 python-versions = "^3.8"
 
 [metadata.files]
@@ -444,6 +455,10 @@ django = [
 django-stubs = [
     {file = "django-stubs-1.5.0.tar.gz", hash = "sha256:b4c9042f2c2fcb89dc0fb37df070cce0f9bf93b39ae193847b6e5a392b13c430"},
     {file = "django_stubs-1.5.0-py3-none-any.whl", hash = "sha256:4a03df70e062f4133085efc461148d0934f36ccfd60a2b6d7bc35821f62008b6"},
+]
+djangorestframework = [
+    {file = "djangorestframework-3.11.0-py3-none-any.whl", hash = "sha256:05809fc66e1c997fd9a32ea5730d9f4ba28b109b9da71fccfa5ff241201fd0a4"},
+    {file = "djangorestframework-3.11.0.tar.gz", hash = "sha256:e782087823c47a26826ee5b6fa0c542968219263fb3976ec3c31edab23a4001f"},
 ]
 djangorestframework-stubs = [
     {file = "djangorestframework-stubs-1.1.0.tar.gz", hash = "sha256:a887daba369b4575d9750b3468530794c5257b1f6733590e37feb96d2e675522"},
